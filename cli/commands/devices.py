@@ -101,13 +101,14 @@ def devices(verbose=False, switch_to='', raw=False):
         )
 
         # interactive prompt
-        from PyInquirer import prompt
-        questions = [{
-            'type': 'list',
-            'name': 'formatted_name',
-            'message': message,
-            'choices': choices,
-        }]
+        from inquirer import prompt, List
+        questions = [
+            List(
+                'formatted_name',
+                message=message,
+                choices=choices
+            )
+        ]
         choice = prompt(questions)
         if not choice:
             return

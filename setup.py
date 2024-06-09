@@ -22,7 +22,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'Click',
-        'PyInquirer',
+        'inquirer',
         'tabulate',
     ],
     entry_points='''

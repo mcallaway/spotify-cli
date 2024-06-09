@@ -62,7 +62,7 @@ def login(client_id='', client_secret=''):
 
     # select scopes
     import webbrowser
-    from PyInquirer import prompt
+    from inquirer import prompt, Checkbox
     enabled_scopes = Spotify.get_config().get('auth_scopes', [])
     choices = []
     for scope in AUTH_SCOPES_MAPPING:
@@ -77,15 +77,15 @@ def login(client_id='', client_secret=''):
         'By default, spotify-cli will enable reading & '
         'modifying the playback state.\n'
     )
-    choice = prompt([{
-        'type': 'checkbox',
-        'name': 'scopes',
-        'message': (
-            'Please select which additional features '
-            'you want to authorize.'
-        ),
-        'choices': choices,
-    }])
+
+    questions = [
+        Checkbox(
+            'scopes',
+            message="Please select which additional features you want to authorize.",
+            choices=choices
+        )
+    ]
+    choice = prompt(questions)
     if not choice:
         return
 
